@@ -79,13 +79,24 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
             Button("Export to PDF") {
-                exportToPDF()
+                sharePDF()
             }
         }
         .padding()
     }
     
-    func exportToPDF() {
+    func sharePDF() {
+        guard let pdfData = generatePDF() else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            rootViewController.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func generatePDF() -> Data? {
         let pdfData = NSMutableData()
         
         UIGraphicsBeginPDFContextToData(pdfData, CGRect(x: 0, y: 0, width: 595.2, height: 842.4), nil) // A4 Paper size: 21 x 29.7 cm
@@ -94,11 +105,7 @@ struct ContentView: View {
         
         UIGraphicsEndPDFContext()
         
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let pdfURL = documentsDirectory.appendingPathComponent("ExportedPDF.pdf")
-            pdfData.write(to: pdfURL, atomically: true)
-            print("PDF saved to: \(pdfURL)")
-        }
+        return pdfData as Data
     }
     
     func drawTable() {
