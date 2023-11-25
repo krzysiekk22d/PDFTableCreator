@@ -78,7 +78,7 @@ struct ContentView: View {
         // Drawing horizontal lines for texts
         for row in 0...words.count - 1 {
             
-            if words[row].leftPart.width() > 225 || words[row].rightPart.width() > 225 {
+            if words[row].leftPart.width() > 230 || words[row].rightPart.width() > 230 {
                 yForHorizontalLines += 40
             } else {
                 yForHorizontalLines += 20
@@ -104,13 +104,13 @@ struct ContentView: View {
             let xLeft = margin + CGFloat(0) * (cellWidth + margin) + 5
             let xRight = margin + CGFloat(1) * (cellWidth + margin) + 5
             
-            let leftTextRect = CGRect(x: xLeft, y: yForTextLines, width: cellWidth - margin + 100, height: .infinity)
-            let rightTextRect = CGRect(x: xRight, y: yForTextLines, width: cellWidth - margin + 100, height: .infinity)
+            let leftTextRect = CGRect(x: xLeft, y: yForTextLines, width: 231, height: .infinity)
+            let rightTextRect = CGRect(x: xRight, y: yForTextLines, width: 231, height: .infinity)
             
             item.leftPart.draw(in: leftTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9), NSAttributedString.Key.foregroundColor: UIColor.black])
             item.rightPart.draw(in: rightTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9), NSAttributedString.Key.foregroundColor: UIColor.black])
             
-            if words[index].leftPart.width() > 225 || words[index].rightPart.width() > 225 {
+            if words[index].leftPart.width() > 230 || words[index].rightPart.width() > 230 {
                 yForTextLines += 40
             } else {
                 yForTextLines += 20
