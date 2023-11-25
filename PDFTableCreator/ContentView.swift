@@ -79,7 +79,7 @@ struct ContentView: View {
         for row in 0...words.count - 1 {
             
             if words[row].leftPart.width() > 230 || words[row].rightPart.width() > 230 {
-                yForHorizontalLines += 40
+                yForHorizontalLines += 30
             } else {
                 yForHorizontalLines += 20
             }
@@ -111,7 +111,7 @@ struct ContentView: View {
             item.rightPart.draw(in: rightTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9), NSAttributedString.Key.foregroundColor: UIColor.black])
             
             if words[index].leftPart.width() > 230 || words[index].rightPart.width() > 230 {
-                yForTextLines += 40
+                yForTextLines += 30
             } else {
                 yForTextLines += 20
             }
