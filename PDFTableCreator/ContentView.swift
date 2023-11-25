@@ -10,18 +10,18 @@ import PDFKit
 
 struct ContentView: View {
     @State private var words: [Word] = [
-        Word(id: "x", leftPart: "hello", rightPart: "siemano"),
-        Word(id: "x", leftPart: "sun", rightPart: "słońce"),
-        Word(id: "x", leftPart: "moon", rightPart: "księżyc"),
-        Word(id: "x", leftPart: "table", rightPart: "tabelka"),
-        Word(id: "x", leftPart: "this is a long text just to check whether a cell would place it", rightPart: "a tu krótki tekst"),
-        Word(id: "x", leftPart: "flower", rightPart: "kwiatek"),
-        Word(id: "x", leftPart: "speak of the devil", rightPart: "o wilku mowa"),
-        Word(id: "x", leftPart: "there is no rose without a thorn", rightPart: "nie ma róży bez kolców"),
-        Word(id: "x", leftPart: "unconsciousness", rightPart: "nieprzytomność"),
-        Word(id: "x", leftPart: "practice makes perfect", rightPart: "trening czyni mistrza"),
-        Word(id: "x", leftPart: "here a short text", rightPart: "a tutaj długi tekst, żeby zobaczyć, czy komórka go pomieści"),
-        Word(id: "x", leftPart: "a friend in need is a friend indeed", rightPart: "prawdziwych przyjaciół poznaje się w biedzie")
+        Word(id: "1", leftPart: "hello", rightPart: "siemano"),
+        Word(id: "2", leftPart: "sun", rightPart: "słońce"),
+        Word(id: "3", leftPart: "moon", rightPart: "księżyc"),
+        Word(id: "4", leftPart: "table", rightPart: "tabelka"),
+        Word(id: "5", leftPart: "this is a long text just to check whether a cell would place it", rightPart: "a tu krótki tekst"),
+        Word(id: "6", leftPart: "flower", rightPart: "kwiatek"),
+        Word(id: "7", leftPart: "speak of the devil", rightPart: "o wilku mowa"),
+        Word(id: "8", leftPart: "there is no rose without a thorn", rightPart: "nie ma róży bez kolców"),
+        Word(id: "9", leftPart: "unconsciousness", rightPart: "nieprzytomność"),
+        Word(id: "10", leftPart: "practice makes perfect", rightPart: "trening czyni mistrza"),
+        Word(id: "11", leftPart: "here a short text", rightPart: "a tutaj długi tekst, żeby zobaczyć, czy komórka go pomieści"),
+        Word(id: "12", leftPart: "a friend in need is a friend indeed", rightPart: "prawdziwych przyjaciół poznaje się w biedzie")
     ]
     
     var body: some View {
@@ -78,7 +78,7 @@ struct ContentView: View {
         // Drawing horizontal lines for texts
         for row in 0...words.count - 1 {
             
-            if words[row].leftPart.width(withConstrainedHeight: 20, font: UIFont.systemFont(ofSize: 9)) > 275 || words[row].rightPart.width(withConstrainedHeight: 20, font: UIFont.systemFont(ofSize: 9)) > 275 {
+            if words[row].leftPart.width() > 225 || words[row].rightPart.width() > 225 {
                 yForHorizontalLines += 40
             } else {
                 yForHorizontalLines += 20
@@ -107,10 +107,10 @@ struct ContentView: View {
             let leftTextRect = CGRect(x: xLeft, y: yForTextLines, width: cellWidth - margin + 100, height: .infinity)
             let rightTextRect = CGRect(x: xRight, y: yForTextLines, width: cellWidth - margin + 100, height: .infinity)
             
-            item.leftPart.draw(in: leftTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)])
-            item.rightPart.draw(in: rightTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)])
+            item.leftPart.draw(in: leftTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9), NSAttributedString.Key.foregroundColor: UIColor.black])
+            item.rightPart.draw(in: rightTextRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9), NSAttributedString.Key.foregroundColor: UIColor.black])
             
-            if words[index].leftPart.width(withConstrainedHeight: 20, font: UIFont.systemFont(ofSize: 9)) > 275 || words[index].rightPart.width(withConstrainedHeight: 20, font: UIFont.systemFont(ofSize: 9)) > 275 {
+            if words[index].leftPart.width() > 225 || words[index].rightPart.width() > 225 {
                 yForTextLines += 40
             } else {
                 yForTextLines += 20
@@ -126,10 +126,10 @@ struct Word: Identifiable {
 }
 
 extension String {
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let size = CGSize(width: .greatestFiniteMagnitude, height: height)
+    func width() -> CGFloat {
+        let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: .infinity)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let attributes = [NSAttributedString.Key.font: font]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)]
         let boundingRect = self.boundingRect(with: size, options: options, attributes: attributes, context: nil)
         return ceil(boundingRect.width)
     }
