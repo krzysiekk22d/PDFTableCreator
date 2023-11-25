@@ -112,13 +112,12 @@ struct ContentView: View {
         
         UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), nil)
         
-        let context = UIGraphicsGetCurrentContext()!
         let cellWidth: CGFloat = (tableWidth - margin * 2) / 2
         
+        // Draw the first horizontal line
+        let context = UIGraphicsGetCurrentContext()!
         context.setStrokeColor(UIColor.black.cgColor)
         context.setLineWidth(0.5)
-        
-        // draw the first horizontal line
         context.move(to: CGPoint(x: margin - 0.25, y: margin))
         context.addLine(to: CGPoint(x: margin + tableWidth + 0.25, y: margin))
         context.strokePath()
@@ -132,6 +131,9 @@ struct ContentView: View {
                 yForHorizontalLines = margin
                 yForTextLines = 61
                 // Draw the first horizontal line on the new page
+                let context = UIGraphicsGetCurrentContext()!
+                context.setStrokeColor(UIColor.black.cgColor)
+                context.setLineWidth(0.5)
                 context.move(to: CGPoint(x: margin - 0.25, y: margin))
                 context.addLine(to: CGPoint(x: margin + tableWidth + 0.25, y: margin))
                 context.strokePath()
